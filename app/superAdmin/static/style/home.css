@@ -1,0 +1,19 @@
+
+.homescreen{
+    transition: all 1.4s;
+}
+.product-form-section{
+    display: none;
+    transition: all 0.8s;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    background-color: rgba(132, 132, 132, 0.785);
+    height: 100vh;
+    width: 100vw;
+}
+.product-form-section .product-form{
+    background-color: aliceblue;
+    padding: 50px;
+}

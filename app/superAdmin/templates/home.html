@@ -1,0 +1,100 @@
+{%extends "base.html"%}
+{%block title%}Home{%endblock%}
+{%block content%}
+
+
+
+<link rel="stylesheet" href="{{url_for("superAdmin.static",filename='style/home.css')}}">
+<div class="cards m-4 homescreen">
+    <div class="row">
+        <div class="card m-4 col shadow p-3 mb-5 bg-warning-subtle rounded" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Categories</h5>
+              <hr>
+              <p class="card-text">Create New Categories</p>
+              <form  id="categoryForm">
+                <input type="text" name="categoryName" id="cateName">
+                <button type="submit" class="btn btn-primary" id="cateBtn"><i class="fa-solid fa-circle-plus"></i> Add Category</button>
+                
+              </form>
+            </div>
+          </div>
+        <div class="card m-4 col shadow p-3 mb-5 bg-body-tertiary bg-info-subtle rounded" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Products</h5>
+              <hr>
+              <p class="card-text">Create New Product</p>
+              {%if categories%}
+              <a id="addProductBtn" class="btn btn-primary"><i class="fa-solid fa-circle-plus"></i>  Add Product</a>
+              {%else%}
+              <p class="card-text">Add Atleast One Category for Add New Product</p>
+              {%endif%}
+
+            </div>
+          </div>
+        <div class="card m-4 col shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Products</h5>
+              <hr>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+    </div>
+</div>
+
+<div class="mid-section">
+   
+    <div class="product-form-section" id="productForm">
+        <div class="product-form"><button id="closeBtn" class="btn btn-danger">x</button>
+          <div class="close-btn">
+
+          </div>
+            <form method='post' enctype="multipart/form-data" id="product-form">
+                <div class="mb-3">
+                  <h4>Add New Products</h4>
+                  <hr>
+                  <select class="form-select" name="category_select" aria-label="Default select example" required>
+                    <option value="" disabled selected>Select Category</option>
+                    {%if categories%}
+                    {%for cate in categories%}
+                    <option value="{{cate.hash}}">{{cate.name}}</option>
+                    {%endfor%}
+                    {%else%}
+                    <option disabled>No Categories Found!</option>
+                    {%endif%}
+                    
+                  </select>
+                    <input type="text" class="form-control" id="pName" placeholder="Product Name" name="productName" required>
+    
+                    <input type="text" class="form-control" id="pDescription" placeholder="Description" name="description" required>
+                    <input type="number" class="form-control" placeholder="Stock" name="stock" required>
+                    <input type="number" class="form-control" placeholder="Mrp" name='mrp' required>
+                    <input type="number" class="form-control" placeholder="Price" name='price' required>
+                    <input type="number" name="offer" class="form-control" placeholder="Offer">
+                    <label for="pImages">Product Images</label>
+                    <input type="file" id="pImages" class="form-control" name="imgs" placeholder="Images"  multiple accept="image/*" required>
+                  </div>
+                  <button type="submit" class="btn btn-info">Add</button>
+            </form>
+        </div>
+    </div>
+    <div class='flash'>
+      {%with messages = get_flashed_messages()%}
+        {%if messages%}
+        <div class="message">
+            <div class="flash">
+                {%for message in messages%}
+                <p>{{message}}</p>
+                {%endfor%}
+            </div>
+        </div>
+        {%endif%}
+        {%endwith%}
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{url_for("superAdmin.static",filename='script/home.js')}}"></script>
+{%endblock%}
